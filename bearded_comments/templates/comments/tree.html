@@ -1,0 +1,16 @@
+{% comment %}
+    This may look strange because the tree is first flattened into a list of
+    annotated nodes before it can be traversed as below. For those that don't
+    know it is using depth-first traversal.
+{% endcomment %}
+{% for node, info in comment_tree %}
+    {% if info.open %}
+        <ul><li>
+    {% else %}
+        </li><li>
+    {% endif %}
+    {{ node.comment.title }}:{{ node.insertion_date|time:"s:u" }}
+    {% for close in info.close %}
+        </li></ul>
+    {% endfor %}
+{% endfor %}
